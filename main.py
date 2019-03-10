@@ -1,6 +1,7 @@
 import pathlib
 
 def loadImg():
+    global data
     data = []
     subs = ["image", "text file"]
     exts = [".png", ".txt"]
@@ -13,5 +14,12 @@ def loadImg():
         else:
             print("Couldn't find the file.")
             pass
-            
+
+def stringToBinary():
+    f = open(data[1], "r")
+    if f.mode == "r":
+        textFile = f.read()
+    print(' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII')))
+
 loadImg()
+stringToBinary()
