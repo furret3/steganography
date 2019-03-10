@@ -1,4 +1,5 @@
-import pathlib
+import pathlib, io
+from PIL import Image
 
 def loadImg():
     global data
@@ -19,7 +20,15 @@ def stringToBinary():
     f = open(data[1], "r")
     if f.mode == "r":
         textFile = f.read()
-    print(' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII')))
+    binaryTextFile = ' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII'))
+    return binaryTextFile
+
+def imageToBinary():
+    imgFile = Image.open(data[0], mode="r")
+    binaryImgFile = io.BytesIO()
+    imgFile.save(binaryImgFile, format='PNG')
+    return binaryImgFile.getvalue()
 
 loadImg()
 stringToBinary()
+imageToBinary()
