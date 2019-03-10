@@ -1,2 +1,2 @@
 # steganography
-Embedding files into images.
+Embedding text files into images.
