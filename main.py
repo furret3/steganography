@@ -5,10 +5,10 @@ def loadImg():
     global data
     data = []
     subs = ["image", "text file"]
-    exts = [".png", ".txt"]
+    exts = [".jpg", ".txt"]
     x = 0
     for i in range(len(subs)):
-        check = pathlib.Path(input(f"Enter {subs[x]} name: ").with_suffix(exts[x])) # To be fixed
+        check = pathlib.Path(input(f"Enter {subs[x]} name: ")).with_suffix(exts[x]) # To be fixed
         if check.is_file():
             data.insert(x, check)
             if(x < len(subs)):
