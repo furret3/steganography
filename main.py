@@ -8,13 +8,13 @@ def loadImg():
     exts = [".png", ".txt"]
     x = 0
     for i in range(len(subs)):
-        data.insert(x, pathlib.Path(input(f"Enter {subs[x]} name: ")).with_suffix(exts[x]))
-        if data[x].is_file():
+        check = pathlib.Path(input(f"Enter {subs[x]} name: ").with_suffix(exts[x])) # To be fixed
+        if check.is_file():
+            data.insert(x, check)
             if(x < len(subs)):
                 x+=1
         else:
-            print("Couldn't find the file.")
-            pass
+            print("Couldn't find the file. Try again.")
 
 def stringToBinary():
     f = open(data[1], "r")
