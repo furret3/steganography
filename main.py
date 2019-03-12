@@ -1,4 +1,4 @@
-import pathlib, io
+import pathlib
 from PIL import Image
 
 def loadImg():
@@ -24,10 +24,10 @@ def stringToBinary():
     return binaryTextFile
 
 def imageToBinary():
-    imgFile = Image.open(data[0], mode="r")
-    binaryImgFile = io.BytesIO()
-    imgFile.save(binaryImgFile, format='PNG')
-    return binaryImgFile.getvalue()
+    imgFile = Image.open(data[0], "r")
+    grayScale = imgFile.convert("L")
+    binaryImgFile = grayScale.point(lambda z: 0 if z<128 else 255, "1")
+    binaryImgFile.save("binaryImg.png")
 
 loadImg()
 stringToBinary()
