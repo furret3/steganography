@@ -1,13 +1,13 @@
 import pathlib
 from PIL import Image
 
-def loadImg():
+def loadFile():
     global data
+    x = 0
     data = []
     subs = ["image", "text file"]
     exts = [".jpg", ".txt"]
-    x = 0
-    for i in range(len(subs)):
+    while x < 2:
         check = pathlib.Path(input(f"Enter {subs[x]} name: ")).with_suffix(exts[x]) # To be fixed
         if check.is_file():
             data.insert(x, check)
@@ -15,6 +15,7 @@ def loadImg():
                 x+=1
         else:
             print("Couldn't find the file. Try again.")
+            x = 0
 
 def stringToBinary():
     f = open(data[1], "r")
@@ -29,6 +30,4 @@ def imageToBinary():
     binaryImgFile = grayScale.point(lambda z: 0 if z<128 else 255, "1")
     binaryImgFile.save("binaryImg.png")
 
-loadImg()
-stringToBinary()
-imageToBinary()
+loadFile()
