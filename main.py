@@ -1,4 +1,5 @@
 import pathlib, binascii
+from textwrap import wrap
 from PIL import Image
 
 def loadFile():
@@ -21,8 +22,7 @@ def stringToBinary():
     f = open(data[1], "r")
     if f.mode == "r":
         textFile = f.read()
-    binaryTextFile = ' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII'))
-    return binaryTextFile
+    binaryTextFile = wrap(' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII')), 2)
 
 def imageToBinary():
     imgFile = open(data[0], "rb")
@@ -37,7 +37,7 @@ def imageToBinary():
         hex_list.append(hex)
         bin_list.append(bin(int(hex, 16))[2:])
     
-    bin_str = "".join(bin_list)
+    bin_list = wrap(''.join(bin_list), 8) 
 
 loadFile()
 stringToBinary()
