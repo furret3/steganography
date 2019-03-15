@@ -1,4 +1,4 @@
-import pathlib
+import pathlib, binascii
 from PIL import Image
 
 def loadFile():
@@ -25,9 +25,20 @@ def stringToBinary():
     return binaryTextFile
 
 def imageToBinary():
-    imgFile = Image.open(data[0], "r")
-    grayScale = imgFile.convert("L")
-    binaryImgFile = grayScale.point(lambda z: 0 if z<128 else 255, "1")
-    binaryImgFile.save("binaryImg.png")
+    imgFile = open(data[0], "rb")
+    imgData = imgFile.read()
+    imgFile.close()
+
+    hex_str = str(binascii.hexlify(imgData))
+    hex_list = []
+    bin_list = []
+    for i in range(2, len(hex_str)-1, 2):
+        hex = hex_str[i] + hex_str[i+1]
+        hex_list.append(hex)
+        bin_list.append(bin(int(hex, 16))[2:])
+    
+    bin_str = "".join(bin_list)
 
 loadFile()
+stringToBinary()
+imageToBinary()
