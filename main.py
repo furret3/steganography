@@ -19,12 +19,14 @@ def loadFile():
             x = 0
 
 def stringToBinary():
+    global binaryTextFile
     f = open(data[1], "r")
     if f.mode == "r":
         textFile = f.read()
     binaryTextFile = wrap(' '.join(format(x, 'b') for x in bytearray(textFile, encoding='ASCII')), 2)
 
 def imageToBinary():
+    global bin_list
     imgFile = open(data[0], "rb")
     imgData = imgFile.read()
     imgFile.close()
@@ -37,7 +39,20 @@ def imageToBinary():
         hex_list.append(hex)
         bin_list.append(bin(int(hex, 16))[2:])
     
-    bin_list = wrap(''.join(bin_list), 8) 
+    bin_list = wrap(''.join(bin_list), 8)
+
+def enc():
+    x = 0
+    result = []
+    for i in range(len(binaryTextFile)):
+        imgByte = str(bin_list[x])
+        textBits = str(binaryTextFile[x])
+        newImgByte = imgByte[:-2] + textBits
+        result.insert(x, newImgByte)
+        if(x < len(binaryTextFile)):
+            x+=1
+        else:
+            break
 
 loadFile()
 stringToBinary()
