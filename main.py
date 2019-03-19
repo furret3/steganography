@@ -1,6 +1,7 @@
 import pathlib, binascii
 from textwrap import wrap
 from PIL import Image
+import struct
 
 def loadFile():
     global data
@@ -55,9 +56,29 @@ def enc():
             x+=1
         else:
             break
-    print(result)
+    
+    
+
+def newImg():
+    x = 0
+    arr = []
+    tmp = ""
+    for i in range(len(result)):
+        tmp = tmp + str(result[x])
+        if(x < len(result)):
+            x+=1
+        else:
+            break
+    arr = wrap(''.join(tmp), 1)
+    print(arr)
+
+    size = 5
+    dt = struct.pack('B'*len(arr), *[pixel*255 for pixel in arr]) # to fix
+    img = Image.frombuffer('L', size, dt)
+    img.save('final.jpg')
 
 loadFile()
 stringToBinary()
 imageToBinary()
 enc()
+newImg()
