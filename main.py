@@ -42,8 +42,10 @@ def imageToBinary():
     bin_list = wrap(''.join(bin_list), 8)
 
 def enc():
+    global result
     x = 0
     result = []
+    result = bin_list
     for i in range(len(binaryTextFile)):
         imgByte = str(bin_list[x])
         textBits = str(binaryTextFile[x])
@@ -53,7 +55,9 @@ def enc():
             x+=1
         else:
             break
+    print(result)
 
 loadFile()
 stringToBinary()
 imageToBinary()
+enc()
